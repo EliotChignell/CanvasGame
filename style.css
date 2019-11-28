@@ -1,0 +1,19 @@
+@font-face {
+    src: url("SFProText-Regular.ttf") format("truetype");
+    font-family: SF;
+}
+
+body {
+    background-color: black;
+    font-family: SF;
+}
+
+#mainCanvas {
+    border: 3px solid white;
+    border-radius: 8px;
+
+    /* Positioning canvas in centre */
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
