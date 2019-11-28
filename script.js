@@ -59,6 +59,9 @@ function mLoop() {
             // Score
             dt(10,30,"white","25px SF","Score: " + score);
 
+            // Instructions
+            dt(260,30,"white","25px SF","Press Space to move paddle")
+
             /*
             if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0) ||
                 collision(ball.x,ball.y,ball.w,ball.h,0,0,600,0) ||
@@ -66,7 +69,7 @@ function mLoop() {
                 collision(ball.x,ball.y,ball.w,ball.h,600,0,0,400)) reverseVelocity();
             */
 
-            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0)) {
+            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0) || ball.y >= 570) {
                 // ball.yv = -ball.yv;
                 gameState = 1;
             }
@@ -92,7 +95,7 @@ function mLoop() {
                 // paddle.x += paddle.xv;
                 console.log("collision")
             } */
-            if (65 in keysDown) {
+            if (65 in keysDown || 32 in keysDown) {
                 if (paddleDirection == "right") paddle.xv = 10;
                 if (paddleDirection == "left") paddle.xv = -10;
                 paddleMoving = true;
