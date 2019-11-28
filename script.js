@@ -68,7 +68,7 @@ function mLoop() {
 
             if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0)) {
                 // ball.yv = -ball.yv;
-                // gameState = 1;
+                gameState = 1;
             }
             if (collision(ball.x,ball.y,ball.w,ball.h,0,0,600,0)) ball.yv = -ball.yv;
             if (collision(ball.x,ball.y,ball.w,ball.h,0,0,0,400)) ball.xv = -ball.xv;
