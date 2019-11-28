@@ -69,7 +69,7 @@ function mLoop() {
                 collision(ball.x,ball.y,ball.w,ball.h,600,0,0,400)) reverseVelocity();
             */
 
-            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0) || ball.y >= 570) {
+            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0) || ball.y > 540) {
                 // ball.yv = -ball.yv;
                 gameState = 1;
             }
