@@ -136,6 +136,8 @@ function mLoop() {
                     c: "white",
                     xv: 0
                 };
+                paddleDirection = "right";
+                paddleMoving = false;
                 ball = {
                     x: 100,
                     y: 0,
