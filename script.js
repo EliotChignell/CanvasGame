@@ -5,7 +5,7 @@ const context = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 400;
 
-let gameState = 0;
+let gameState = 2;
 let fps = 60;
 let keysDown = {};
 let score = 0;
@@ -23,7 +23,7 @@ let paddle = {
 };
 
 let ball = {
-    x: 100,
+    x: 0,
     y: 0,
     w: 30,
     h: 30,
@@ -69,8 +69,7 @@ function mLoop() {
                 collision(ball.x,ball.y,ball.w,ball.h,600,0,0,400)) reverseVelocity();
             */
 
-            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0) || ball.y > 540) {
-                // ball.yv = -ball.yv;
+            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0) || ball.y >= 350) {
                 gameState = 1;
             }
             if (collision(ball.x,ball.y,ball.w,ball.h,0,0,600,0)) ball.yv = -ball.yv;
@@ -80,6 +79,8 @@ function mLoop() {
                 ball.yv = -ball.yv;
                 score++;
             }
+
+            console.log(ball.y);
             
             if (paddle.x + paddle.w >= canvas.width && paddle.xv > 0) {
                 paddleDirection = "left";
@@ -101,7 +102,6 @@ function mLoop() {
                 paddleMoving = true;
             }
 
-            console.log(paddle.x);
             if (paddleMoving) {
                 paddle.xv = paddle.xv * 0.9;
                 if (paddle.xv < 0.5 && paddleDirection == "right") {
@@ -117,11 +117,13 @@ function mLoop() {
             paddle.x += paddle.xv;
             break;
 
-        case 1:
+        case 1: // Game over screen
             listenForKeys();
             // Previous stuff
             dr(paddle.x,paddle.y,paddle.w,paddle.h,paddle.c);
             dr(ball.x,ball.y,ball.w,ball.h,ball.c);
+            dt(10,30,"white","25px SF","Score: " + score);
+            dt(260,30,"white","25px SF","Press Space to move paddle")
 
             // Background (slightly transparent)
             dr(0,0,canvas.width,canvas.height,"rgba(0,0,0,0.7)");
@@ -129,6 +131,7 @@ function mLoop() {
             // Text and other graphics
             dt(190,150,"white","40px SF","Game Over");
             dt(215,200,"white","20px SF","Press R to restart");
+            dt(170,240,"white","20px SF","Press M to return to the menu");
 
             if (82 in keysDown) {
                 paddle = {
@@ -142,18 +145,84 @@ function mLoop() {
                 paddleDirection = "right";
                 paddleMoving = false;
                 ball = {
-                    x: 100,
+                    x: Math.random() * 200,
                     y: 0,
                     w: 30,
                     h: 30,
                     c: "red",
                 
-                    xv: 10,
-                    yv: 10,
+                    xv: 7,
+                    yv: 7,
                 };
                 score = 0;
                 gameState = 0;
             }
+            if (77 in keysDown) {
+                paddle = {
+                    x: 200,
+                    y: 370,
+                    w: 200,
+                    h: 30,
+                    c: "white",
+                    xv: 0
+                };
+                paddleDirection = "right";
+                paddleMoving = false;
+                ball = {
+                    x: Math.random() * 200,
+                    y: 0,
+                    w: 30,
+                    h: 30,
+                    c: "red",
+                
+                    xv: 7,
+                    yv: 7,
+                };
+                score = 0;
+                gameState = 2;
+            }
+            break;
+        
+        case 2: // Menu
+            listenForKeys();
+            // Background
+            dr(0,0,canvas.width,canvas.height,"black");
+
+            // Ball
+            dr(ball.x,ball.y,ball.w,ball.h,ball.c);
+            ball.x += ball.xv;
+            ball.y += ball.yv;
+            if (collision(ball.x,ball.y,ball.w,ball.h,0,0,600,0)) ball.yv = -ball.yv;
+            if (collision(ball.x,ball.y,ball.w,ball.h,0,0,0,400)) ball.xv = -ball.xv;
+            if (collision(ball.x,ball.y,ball.w,ball.h,600,0,0,400)) ball.xv = -ball.xv;
+            if (collision(ball.x,ball.y,ball.w,ball.h,0,400,600,0)) ball.yv = -ball.yv;
+
+            // Transparent background
+            dr(0,0,canvas.width,canvas.height,"rgba(0,0,0,0.45)");
+
+            // Text
+            dt(190,140,"white","50px SF","PongPing");
+            dt(200,190,"white","25px SF","Pong with a twist");
+            dt(210,275,"white","25px SF","Press S to start");
+            dt(195,315,"white","25px SF","Press G for GitHub");
+            dt(10,25,"white","20px SF","v1.04");
+            dt(385,25,"white","20px SF","Made by Eliot Chignell");
+
+            if (83 in keysDown) {
+                ball = {
+                    x: Math.random() * 200,
+                    y: 0,
+                    w: 30,
+                    h: 30,
+                    c: "red",
+                
+                    xv: 7,
+                    yv: 7,
+                };
+                gameState = 0;
+            }
+            if (71 in keysDown) window.location = "https://github.com/EliotChignell/PongPing";
+
             break;
     }   
 }

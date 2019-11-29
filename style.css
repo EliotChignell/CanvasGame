@@ -10,7 +10,7 @@ body {
 
 #mainCanvas {
     border: 3px solid white;
-    border-radius: 8px;
+    border-radius: 10px;
 
     /* Positioning canvas in centre */
     margin: auto;
