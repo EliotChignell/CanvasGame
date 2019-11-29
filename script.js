@@ -219,7 +219,7 @@ function mLoop() {
             dt(200,190,"white","25px SF","Pong with a twist");
             dt(210,275,"white","25px SF","Press S to start");
             dt(195,315,"white","25px SF","Press G for GitHub");
-            dt(10,25,"white","20px SF","v1.04");
+            dt(10,25,"white","20px SF","v1.05");
             dt(385,25,"white","20px SF","Made by Eliot Chignell");
 
             if (83 in keysDown) {
